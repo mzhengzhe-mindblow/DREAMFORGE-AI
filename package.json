@@ -1,0 +1,60 @@
+{
+  "name": "dreamforge-ai-video",
+  "version": "1.0.0",
+  "description": "DreamForge AI video, image, and marketing studio.",
+  "author": "DreamForge",
+  "main": "electron-main.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "desktop": "electron .",
+    "release:dmg": "node --check app.js && node --check server.js && node --check electron-main.js && npm run dmg",
+    "pack:mac": "ELECTRON_BUILDER_CACHE=./.electron-builder-cache electron-builder --mac",
+    "dmg": "ELECTRON_BUILDER_CACHE=./.electron-builder-cache electron-builder --mac dmg"
+  },
+  "build": {
+    "appId": "com.dreamforge.ai.video",
+    "productName": "DreamForge",
+    "files": [
+      "index.html",
+      "styles.css",
+      "app.js",
+      "server.js",
+      "electron-main.js",
+      "assets/**/*",
+      "build/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "category": "public.app-category.video",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/dreamforge-brand.png"
+    },
+    "dmg": {
+      "artifactName": "DreamForge-${version}-${arch}.dmg",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.0"
+  }
+}

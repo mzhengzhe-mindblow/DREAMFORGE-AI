@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DreamForge AI Video</title>
+    <link rel="icon" type="image/png" href="./assets/dreamforge-brand.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="toastHost" class="toast-host" aria-live="polite"></div>
+
+    <section id="landing" class="landing">
+      <header class="topbar">
+        <button class="brand" data-action="home" aria-label="DreamForge 首页">
+          <span class="brand-mark">DF</span>
+          <span>DreamForge</span>
+        </button>
+        <nav class="nav-links" aria-label="主导航">
+          <button data-action="scroll-gallery">灵感</button>
+          <button data-action="open-workspace">工作台</button>
+        </nav>
+        <div class="auth-actions">
+          <button class="ghost-btn" data-auth="login">登录</button>
+          <button class="solid-btn" data-auth="signup">注册</button>
+        </div>
+      </header>
+
+      <main class="hero">
+        <img src="./assets/hero-ai-video-studio.png" alt="" class="hero-image" />
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <p class="eyebrow">AI Video Studio</p>
+          <h1>想象是你创意的开始</h1>
+          <p class="hero-copy">登录后进入你的 AI 影片与图片创作工作台，把灵感变成可预览、可下载、可继续编辑的项目。</p>
+          <div class="hero-actions">
+            <button class="primary-btn" data-action="open-workspace">开始生成</button>
+            <button class="secondary-btn" data-action="demo-generate">查看演示</button>
+          </div>
+          <div class="hero-metrics" aria-label="平台能力">
+            <button data-action="metric-speed"><strong>35s</strong><span>快速预览</span></button>
+            <button data-action="metric-model"><strong>6</strong><span>影片模型</span></button>
+            <button data-action="metric-export"><strong>4K</strong><span>导出选项</span></button>
+          </div>
+        </div>
+      </main>
+
+      <section id="gallery" class="showcase-band">
+        <div class="section-head">
+          <p class="eyebrow">Creative Flow</p>
+          <h2>从想法到可下载视频</h2>
+        </div>
+        <div class="showcase-grid">
+          <button class="showcase-item" data-action="sample-cinematic">
+            <span class="sample sample-a"></span>
+            <strong>电影感镜头</strong>
+            <small>景别、运镜、光线可调</small>
+          </button>
+          <button class="showcase-item" data-action="sample-product">
+            <span class="sample sample-b"></span>
+            <strong>产品广告</strong>
+            <small>适配 9:16 / 16:9</small>
+          </button>
+          <button class="showcase-item" data-action="sample-avatar">
+            <span class="sample sample-c"></span>
+            <strong>图片转视频</strong>
+            <small>保留主体风格与动作</small>
+          </button>
+          <button class="showcase-item" data-action="sample-remix">
+            <span class="sample sample-d"></span>
+            <strong>视频重绘</strong>
+            <small>参考片段再生成</small>
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section id="workspace" class="workspace workspace-home" hidden>
+      <div id="studioHome" class="studio-home">
+        <header class="studio-topbar">
+          <button class="studio-logo" data-action="studio-home" aria-label="DreamForge Explore">
+            <span class="brand-mark">DF</span>
+            <span>DreamForge</span>
+          </button>
+          <nav class="studio-nav" aria-label="创作分类">
+            <button class="active" data-studio-filter="all">Explore</button>
+            <button data-studio-filter="image">Image</button>
+            <button data-studio-filter="video">Video</button>
+            <button data-studio-filter="marketing">Marketing Studio</button>
+            <button data-studio-filter="cinema">Cinema Studio</button>
+            <button data-studio-filter="canvas">Canvas</button>
+          </nav>
+          <div class="studio-tools">
+            <label class="studio-search">
+              <span>⌕</span>
+              <input id="studioSearch" type="search" placeholder="Search" />
+            </label>
+            <button data-action="assets">Assets</button>
+            <button data-action="open-admin-settings">后台</button>
+            <button data-action="logout">登出</button>
+          </div>
+        </header>
+        <section id="studioSearchResults" class="studio-search-results" hidden></section>
+
+        <main class="studio-main">
+          <section class="studio-feature-grid" aria-label="重点生成栏目">
+            <button class="feature-card seedance-feature" data-tool-kind="video" data-studio-launch data-mode="image" data-model="BytePlus Seedance 1.5 Pro" data-scene="seedance">
+              <small>Video</small>
+              <strong>Seedance 2.0</strong>
+              <p>Text to Video / Image to Video，一键进入影片生成工作流。</p>
+            </button>
+            <button class="feature-card copywriter-feature" data-tool-kind="marketing" data-studio-launch data-mode="text" data-model="GPT-4.1" data-scene="copywriter">
+              <small>LLM</small>
+              <strong>AI 对话</strong>
+              <p>选择大语言模型，连接对应 API Key，联网回答你的问题并参考上传资料。</p>
+            </button>
+            <button class="feature-card marketing-feature" data-tool-kind="marketing" data-studio-launch data-mode="text" data-model="BytePlus Seedance 1.5 Pro" data-scene="marketing">
+              <small>Creative</small>
+              <strong>Marketing Studio</strong>
+              <p>写文案、看受众、生成图片与影片，完成一站式营销创作。</p>
+            </button>
+          </section>
+
+          <section class="studio-grid">
+            <button class="tool-card" data-tool-kind="image" data-studio-launch data-mode="imagegen" data-model="gpt-image-2" data-scene="image">
+              <span class="tool-icon">G</span>
+              <small>Image</small>
+              <strong>GPT Image 2</strong>
+              <p>跳转到 AI 图片生成页面</p>
+            </button>
+            <button class="tool-card" data-tool-kind="image" data-studio-launch data-mode="imagegen" data-model="nano-banana" data-scene="nanobanana">
+              <span class="tool-icon">N</span>
+              <small>Gemini</small>
+              <strong>Nano Banana</strong>
+              <p>连接 Google Gemini API 联网生图</p>
+            </button>
+            <button class="tool-card" data-tool-kind="marketing" data-studio-launch data-mode="text" data-model="Runway Gen-4.5" data-scene="storyboard">
+              <span class="tool-icon">▤</span>
+              <small>Script</small>
+              <strong>分镜脚本</strong>
+              <p>左边写文案，右边生成分镜图</p>
+            </button>
+            <button class="tool-card" data-tool-kind="canvas" data-studio-launch data-mode="imagegen" data-model="gemini-3-pro-image-preview" data-scene="canvas">
+              <span class="tool-icon">☁</span>
+              <small>New</small>
+              <strong>DreamForge Canvas</strong>
+              <p>Generate media with AI canvas</p>
+            </button>
+            <button class="tool-card" data-tool-kind="cinema" data-studio-launch data-mode="text" data-model="Runway Gen-4.5" data-scene="cinema">
+              <span class="tool-icon">▦</span>
+              <small>Video</small>
+              <strong>Cinema Studio 3.5</strong>
+              <p>Create cinematic scenes effortlessly</p>
+            </button>
+          </section>
+        </main>
+      </div>
+
+      <aside class="sidebar generator-shell">
+        <div class="workspace-brand">
+          <button class="brand compact" data-action="studio-home">
+            <span class="brand-mark">DF</span>
+            <span>DreamForge</span>
+          </button>
+          <div class="sidebar-control-group">
+            <button class="icon-btn sidebar-control-btn eye-comfort-control" data-action="toggle-eye-comfort" title="开启护眼模式">护眼</button>
+            <button class="icon-btn sidebar-control-btn collapse-control" data-action="collapse-sidebar" title="收窄历史记录">收窄</button>
+          </div>
+        </div>
+        <button class="new-project" data-action="new-project">+ 新项目</button>
+        <div class="history-head">
+          <strong>生成记录</strong>
+          <span>点击 project 查看素材和对话</span>
+        </div>
+        <div class="project-toolbar">
+          <button class="chip active" data-filter="all">全部</button>
+          <button class="chip" data-filter="favorite">收藏</button>
+        </div>
+        <div id="projectList" class="project-list"></div>
+      </aside>
+
+      <main class="creator generator-shell">
+        <header class="creator-header">
+          <div>
+            <p class="eyebrow">Generation</p>
+            <h2 id="workspaceTitle">新建 AI 影片</h2>
+          </div>
+          <div class="header-actions">
+            <button class="ghost-btn" data-action="save-draft">保存草稿</button>
+            <button class="ghost-btn" data-action="open-admin-settings">后台</button>
+            <button class="solid-btn" data-action="open-settings">账户</button>
+          </div>
+        </header>
+
+        <section class="generator-hero" aria-label="当前生成模型">
+          <div class="generator-collage" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p id="generatorHeroKicker">START CREATING WITH</p>
+          <h2 id="generatorHeroTitle">SEEDANCE 2.0</h2>
+          <p id="generatorHeroSubtitle">Describe a scene, character, mood, or style — and watch it come to life</p>
+        </section>
+
+        <section class="mode-tabs" aria-label="生成模式">
+          <button class="mode-tab active" data-mode="image">图片生成影片</button>
+        </section>
+
+        <section class="composer">
+          <div class="field-head">
+            <label for="promptInput">文案与分镜</label>
+            <div class="inline-actions">
+              <button data-action="prompt-clear">清空</button>
+            </div>
+          </div>
+          <textarea id="promptInput" maxlength="1800" placeholder="直接写入要交给 Seedance 的文案、剧情、镜头动作和分镜内容。例如：第 1 镜头，雨夜街头，主角拿着产品走向镜头；第 2 镜头，特写产品细节；第 3 镜头，品牌口号出现。"></textarea>
+          <div class="prompt-meta">
+            <span id="charCount">0 / 1800</span>
+            <div class="inline-actions">
+              <button data-action="negative-toggle">负面提示词</button>
+            </div>
+          </div>
+          <textarea id="negativeInput" class="negative-field" placeholder="不需要的元素，例如：低清晰度、畸形手部、文字水印、画面抖动" hidden></textarea>
+
+          <div class="image-reference-panel">
+            <div class="field-head">
+              <h3>Image Reference</h3>
+              <span id="referenceCount">0 张</span>
+            </div>
+            <button class="image-reference-box" data-action="upload-asset">
+              <span>+</span>
+              <small>上传参考图</small>
+            </button>
+          </div>
+
+          <div id="uploadPanel" class="upload-panel" hidden>
+            <input id="assetUpload" type="file" accept="image/*,video/*,audio/*" multiple hidden />
+            <button class="upload-box" data-action="upload-asset">
+              <span id="uploadIcon">+</span>
+              <strong id="uploadTitle">上传参考图片</strong>
+              <small id="uploadHint">支持 JPG、PNG、MP4，本原型会模拟上传反馈</small>
+            </button>
+            <div id="uploadStatus" class="upload-status" hidden></div>
+            <div id="uploadTray" class="upload-tray" hidden></div>
+          </div>
+
+          <div class="control-grid">
+            <label>
+              <span id="modelLabel">模型</span>
+              <select id="modelSelect">
+                <option>BytePlus Seedance 1.5 Pro</option>
+                <option>Kling 3 Pro</option>
+                <option>Sora 2 Cinematic</option>
+                <option>Runway Gen-4</option>
+                <option>Pika Turbo</option>
+              </select>
+            </label>
+            <label id="durationControl">
+              <span>总时长</span>
+              <select id="durationSelect">
+                <option value="5 秒">5 秒</option>
+                <option value="8 秒" selected>8 秒</option>
+                <option value="12 秒">12 秒</option>
+                <option value="auto-reference">根据提示词和参考图自动决定</option>
+              </select>
+            </label>
+            <label>
+              <span>尺寸</span>
+              <select id="ratioSelect">
+                <option value="1080x1920">1080×1920 · TikTok / Reels / Shorts</option>
+                <option value="1920x1080">1920×1080 · YouTube / 横屏</option>
+                <option value="1080x1080">1080×1080 · Instagram 方图</option>
+                <option value="1080x1350">1080×1350 · Instagram 4:5</option>
+                <option value="1200x628">1200×628 · Facebook / X 广告</option>
+                <option value="2560x1440">2560×1440 · 2K 横屏</option>
+                <option value="3840x2160">3840×2160 · 4K 横屏</option>
+                <option value="custom">自定义尺寸</option>
+              </select>
+            </label>
+            <label>
+              <span>质量</span>
+              <select id="qualitySelect">
+                <option>快速预览</option>
+                <option selected>高清</option>
+                <option>4K 精修</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="generatorCustomSize" class="generator-custom-size" hidden>
+            <label>
+              <span>宽度 px</span>
+              <input id="generatorCustomWidth" type="number" min="64" max="4096" value="1080" />
+            </label>
+            <label>
+              <span>高度 px</span>
+              <input id="generatorCustomHeight" type="number" min="64" max="4096" value="1920" />
+            </label>
+            <strong id="generatorSizePreview">1080 × 1920 px</strong>
+          </div>
+          <section id="marketingPanel" class="marketing-panel" hidden>
+            <div class="marketing-flow-head">
+              <span data-marketing-step="copy">文案</span>
+              <span data-marketing-step="storyboard">分镜图</span>
+              <span data-marketing-step="video">影片</span>
+            </div>
+            <div class="marketing-brief-card" data-marketing-view="copy">
+              <strong>把广告文案或故事丢进来</strong>
+              <p>系统会直接把你的提示词和参考图交给 Seedance REST API 生成影片，不调用 OpenAI 或 Gemini 分析。</p>
+            </div>
+            <div class="marketing-storyboard-review" data-marketing-view="storyboard" hidden>
+              <div class="field-head">
+                <h3>分镜图检查</h3>
+                <span id="marketingStoryboardCount">0 个动作</span>
+              </div>
+              <div id="marketingStoryboardGrid" class="marketing-storyboard-grid"></div>
+            </div>
+            <div class="marketing-video-builder" data-marketing-view="video" hidden>
+              <div class="field-head">
+                <h3>影片生成</h3>
+                <span>左侧分镜 · 右侧预览</span>
+              </div>
+              <p>确认分镜后，右下角生成影片会把所有分镜动作、对白和画面提示发送给当前影片模型。</p>
+            </div>
+            <div id="marketingNewsPanel" class="marketing-news-panel">
+              <strong>今日马来西亚新闻</strong>
+              <div id="marketingNewsList">打开 Marketing Studio 后会自动更新最新 10 条。</div>
+            </div>
+            <div class="marketing-flow-actions">
+              <button type="button" class="ghost-btn" data-action="marketing-refresh-news">更新新闻</button>
+              <button type="button" class="ghost-btn" data-action="marketing-back-step" hidden>上一步</button>
+              <button type="button" class="solid-btn" data-action="marketing-next-step">自动生成</button>
+            </div>
+          </section>
+
+          <section id="copywriterPanel" class="copywriter-panel" hidden>
+            <div class="copywriter-grid">
+              <label>
+                <span>大语言模型</span>
+                <select id="copyLlmSelect">
+                  <option value="openai:gpt-5.5">OpenAI · GPT-5.5</option>
+                  <option value="openai:gpt-5.2">OpenAI · GPT-5.2</option>
+                  <option value="openai:gpt-5.2-pro">OpenAI · GPT-5.2 Pro</option>
+                  <option value="openai:gpt-5.1">OpenAI · GPT-5.1</option>
+                  <option value="openai:gpt-5">OpenAI · GPT-5</option>
+                  <option value="openai:gpt-5-mini">OpenAI · GPT-5 Mini</option>
+                  <option value="openai:gpt-5-nano">OpenAI · GPT-5 Nano</option>
+                  <option value="openai:gpt-4.1">OpenAI · GPT-4.1</option>
+                  <option value="openai:gpt-4.1-mini">OpenAI · GPT-4.1 Mini</option>
+                  <option value="google:gemini-3.5-flash">Google · Gemini 3.5 Flash</option>
+                  <option value="google:gemini-3-pro-preview">Google · Gemini 3 Pro Preview</option>
+                  <option value="google:gemini-3-flash-preview">Google · Gemini 3 Flash Preview</option>
+                  <option value="google:gemini-2.5-pro">Google · Gemini 2.5 Pro</option>
+                  <option value="google:gemini-2.5-flash">Google · Gemini 2.5 Flash</option>
+                  <option value="google:gemini-2.0-flash">Google · Gemini 2.0 Flash</option>
+                  <option value="anthropic:claude-opus-4-5">Anthropic · Claude Opus 4.5</option>
+                  <option value="anthropic:claude-sonnet-4-5">Anthropic · Claude Sonnet 4.5</option>
+                  <option value="anthropic:claude-haiku-4-5">Anthropic · Claude Haiku 4.5</option>
+                  <option value="deepseek:deepseek-chat">DeepSeek · Chat</option>
+                  <option value="deepseek:deepseek-reasoner">DeepSeek · Reasoner</option>
+                  <option value="qwen:qwen-max">Qwen · Max</option>
+                  <option value="qwen:qwen-plus">Qwen · Plus</option>
+                  <option value="qwen:qwen-turbo">Qwen · Turbo</option>
+                  <option value="xai:grok-4">xAI · Grok 4</option>
+                  <option value="xai:grok-3">xAI · Grok 3</option>
+                  <option value="openrouter:anthropic/claude-sonnet-4.5">OpenRouter · Claude Sonnet 4.5</option>
+                  <option value="openrouter:openai/gpt-5.5">OpenRouter · GPT-5.5</option>
+                  <option value="openrouter:google/gemini-3-pro-preview">OpenRouter · Gemini 3 Pro</option>
+                  <option value="openrouter:deepseek/deepseek-chat">OpenRouter · DeepSeek Chat</option>
+                  <option value="mistral:mistral-large-latest">Mistral · Large Latest</option>
+                  <option value="mistral:pixtral-large-latest">Mistral · Pixtral Large</option>
+                  <option value="cohere:command-a-03-2025">Cohere · Command A</option>
+                  <option value="cohere:command-r-plus">Cohere · Command R+</option>
+                  <option value="perplexity:sonar-pro">Perplexity · Sonar Pro</option>
+                  <option value="perplexity:sonar-reasoning-pro">Perplexity · Sonar Reasoning Pro</option>
+                  <option value="moonshot:moonshot-v1-128k">Moonshot · Kimi 128K</option>
+                  <option value="moonshot:kimi-k2-0711-preview">Moonshot · Kimi K2</option>
+                  <option value="zhipu:glm-4-plus">Zhipu · GLM-4 Plus</option>
+                  <option value="zhipu:glm-4.5">Zhipu · GLM-4.5</option>
+                  <option value="groq:llama-3.3-70b-versatile">Groq · Llama 3.3 70B</option>
+                  <option value="together:meta-llama/Llama-3.3-70B-Instruct-Turbo">Together · Llama 3.3 70B</option>
+                  <option value="fireworks:accounts/fireworks/models/deepseek-v3">Fireworks · DeepSeek V3</option>
+                  <option value="nvidia:meta/llama-3.1-405b-instruct">NVIDIA · Llama 3.1 405B</option>
+                  <option value="cerebras:llama3.1-70b">Cerebras · Llama 3.1 70B</option>
+                  <option value="sambanova:Meta-Llama-3.1-405B-Instruct">SambaNova · Llama 3.1 405B</option>
+                  <option value="ai21:jamba-large-1.7">AI21 · Jamba Large</option>
+                  <option value="baidu:ernie-4.5-turbo-128k">Baidu · ERNIE 4.5</option>
+                  <option value="minimax:MiniMax-M1">MiniMax · M1</option>
+                  <option value="yi:yi-large">01.AI · Yi Large</option>
+                </select>
+              </label>
+            </div>
+            <div id="copyChatWindow" class="copy-chat-window">
+              <article class="assistant">
+                <strong>DreamForge AI</strong>
+                <p>选择模型后直接提问，也可以上传图片或文件作为参考。我会通过对应 API 联网思考并回复。</p>
+              </article>
+            </div>
+            <div id="copyAttachmentTray" class="copy-attachment-tray" hidden></div>
+            <div class="copy-input-bar">
+              <input id="copyAttachmentInput" type="file" accept="image/*,.txt,.md,.csv,.json,.pdf,.doc,.docx" multiple hidden />
+              <button type="button" class="copy-plus" data-action="copy-upload-reference" aria-label="添加参考文件">+</button>
+              <textarea id="copyChatInput" placeholder="Ask anything"></textarea>
+              <button type="button" class="copy-send" data-action="copy-chat-send" aria-label="发送">↑</button>
+            </div>
+          </section>
+
+          <button id="generateBtn" class="generate-btn" data-action="generate">
+            <span id="generateLabel">生成影片</span>
+          </button>
+          <button id="pauseGenerationBtn" class="pause-generation-btn" data-action="pause-generation" hidden>
+            暂停生成
+          </button>
+        </section>
+      </main>
+
+      <aside class="preview-panel generator-shell">
+        <div class="preview-head">
+          <div>
+            <p class="eyebrow">Preview</p>
+            <h2 id="previewHeading">影片预览</h2>
+          </div>
+          <button class="icon-btn" data-action="download" title="下载">↓</button>
+        </div>
+
+        <div id="previewStage" class="preview-stage idle">
+          <div class="preview-visual">
+            <span class="play-core">▶</span>
+            <div id="progressRing" class="progress-ring">0%</div>
+          </div>
+          <strong id="previewTitle">等待生成</strong>
+          <p id="previewMeta">选择模型并输入提示词后开始</p>
+        </div>
+
+        <div class="preview-actions">
+          <button data-action="regenerate">重新生成</button>
+          <button data-action="upscale">提高分辨率</button>
+          <button data-action="download">下载</button>
+        </div>
+
+        <section class="project-chat">
+          <div class="field-head">
+            <h3>项目修改对话</h3>
+            <span id="projectChatStatus">选择 project 后可以修改</span>
+          </div>
+          <div id="projectChatMessages" class="project-chat-messages">
+            <p>生成素材后，这里会记录每次修改要求。</p>
+          </div>
+          <div class="project-chat-input">
+            <textarea id="projectChatInput" rows="3" placeholder="例如：保留人物姿势，把背景改成夜晚城市，画面更写实，尺寸保持不变"></textarea>
+            <button type="button" data-action="project-chat-send">修改并生成</button>
+          </div>
+        </section>
+
+      </aside>
+    </section>
+
+    <div id="authModal" class="modal-backdrop auth-screen">
+      <div class="auth-hero-copy">
+        <button class="brand auth-brand" data-action="home" aria-label="DreamForge 首页">
+          <span class="brand-mark">DF</span>
+          <span>DreamForge</span>
+        </button>
+        <p class="eyebrow">AI Creative Studio</p>
+        <h2>想象是你创意的开始</h2>
+        <p>从一句提示词开始，生成图片、影片、镜头草稿和完整项目。你的创意空间会保存在本机，随时继续。</p>
+        <div class="auth-feature-list">
+          <span>图片生成影片</span>
+          <span>AI 生图</span>
+          <span>本地 Wan 2.2</span>
+          <span>多平台 API</span>
+        </div>
+      </div>
+      <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <button class="close-btn" data-action="close-auth" aria-label="关闭">×</button>
+        <div class="auth-tabs">
+          <button id="loginTab" class="active" data-auth-tab="login">登录</button>
+          <button id="signupTab" data-auth-tab="signup">注册</button>
+        </div>
+        <h2 id="authTitle">登录 DreamForge</h2>
+        <p id="authSubtitle">继续你的 AI 影片项目。</p>
+        <form id="authForm" novalidate>
+          <label>
+            <span>邮箱</span>
+            <input id="emailInput" type="email" autocomplete="username" placeholder="you@example.com" required />
+          </label>
+          <label>
+            <span>密码</span>
+            <input id="passwordInput" type="password" autocomplete="current-password" placeholder="至少 6 位" required />
+          </label>
+          <label id="rememberField" class="remember-row">
+            <input id="rememberPasswordInput" type="checkbox" />
+            <span>记住密码</span>
+          </label>
+          <label id="nameField" hidden>
+            <span>创作者名称</span>
+            <input id="nameInput" type="text" placeholder="你的团队或昵称" />
+          </label>
+          <button class="primary-btn auth-submit" type="submit">继续</button>
+        </form>
+        <div id="verificationNotice" class="verification-notice" hidden></div>
+        <button class="link-btn" data-action="forgot-password">忘记密码？</button>
+      </section>
+    </div>
+
+    <div id="settingsModal" class="modal-backdrop" hidden>
+      <section class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <button class="close-btn" data-action="close-settings" aria-label="关闭">×</button>
+        <div class="settings-head">
+          <div>
+            <p class="eyebrow">Admin Settings</p>
+            <h2 id="settingsTitle">后台设置</h2>
+            <p>配置模型、API Keys、联网生成和账号安全。</p>
+          </div>
+          <span id="settingsSavedState" class="save-state">未保存</span>
+        </div>
+
+        <div class="settings-layout">
+          <aside class="settings-tabs" aria-label="设置分类">
+            <button class="settings-tab active" data-settings-tab="keys">API Keys</button>
+            <button class="settings-tab" data-settings-tab="llmapi">大语言模型 LLM</button>
+            <button class="settings-tab" data-settings-tab="localvideo">本地影片</button>
+            <button class="settings-tab" data-settings-tab="security">账户安全</button>
+          </aside>
+
+          <form id="settingsForm" class="settings-body">
+            <section class="settings-section active api-key-settings" data-settings-section="keys">
+              <div class="key-row">
+                <label>
+                  <span>OpenAI Key</span>
+                  <input id="keyOpenai" type="password" autocomplete="off" placeholder="sk-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyOpenai">显示</button>
+                <button type="button" data-action="test-key" data-provider="openai">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Stability AI Key</span>
+                  <input id="keyStability" type="password" autocomplete="off" placeholder="sk-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyStability">显示</button>
+                <button type="button" data-action="test-key" data-provider="stability">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>fal.ai Key</span>
+                  <input id="keyFal" type="password" autocomplete="off" placeholder="fal-key..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyFal">显示</button>
+                <button type="button" data-action="test-key" data-provider="fal">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Replicate Token</span>
+                  <input id="keyReplicate" type="password" autocomplete="off" placeholder="r8_..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyReplicate">显示</button>
+                <button type="button" data-action="test-key" data-provider="replicate">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Google AI Key</span>
+                  <input id="keyGoogle" type="password" autocomplete="off" placeholder="AIza..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyGoogle">显示</button>
+                <button type="button" data-action="test-key" data-provider="google">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Ideogram Key</span>
+                  <input id="keyIdeogram" type="password" autocomplete="off" placeholder="ideo_..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyIdeogram">显示</button>
+                <button type="button" data-action="test-key" data-provider="ideogram">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Leonardo Key</span>
+                  <input id="keyLeonardo" type="password" autocomplete="off" placeholder="leo_..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyLeonardo">显示</button>
+                <button type="button" data-action="test-key" data-provider="leonardo">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>BytePlus / Dreamina Seedance Key</span>
+                  <input id="keyByteplus" type="password" autocomplete="off" placeholder="BytePlus API Key" />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyByteplus">显示</button>
+                <button type="button" data-action="test-byteplus">测试</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Claude / Anthropic Key</span>
+                  <input id="keyAnthropic" type="password" autocomplete="off" placeholder="sk-ant-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyAnthropic">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>DeepSeek Key</span>
+                  <input id="keyDeepseek" type="password" autocomplete="off" placeholder="sk-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyDeepseek">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Qwen / 通义千问 Key</span>
+                  <input id="keyQwen" type="password" autocomplete="off" placeholder="sk-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyQwen">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>xAI / Grok Key</span>
+                  <input id="keyXai" type="password" autocomplete="off" placeholder="xai-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyXai">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>OpenRouter Key</span>
+                  <input id="keyOpenrouter" type="password" autocomplete="off" placeholder="sk-or-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyOpenrouter">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Mistral Key</span>
+                  <input id="keyMistral" type="password" autocomplete="off" placeholder="sk-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyMistral">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Cohere Key</span>
+                  <input id="keyCohere" type="password" autocomplete="off" placeholder="co-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyCohere">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Perplexity Key</span>
+                  <input id="keyPerplexity" type="password" autocomplete="off" placeholder="pplx-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyPerplexity">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Moonshot / Kimi Key</span>
+                  <input id="keyMoonshot" type="password" autocomplete="off" placeholder="sk-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyMoonshot">显示</button>
+              </div>
+              <div class="key-row">
+                <label>
+                  <span>Zhipu / GLM Key</span>
+                  <input id="keyZhipu" type="password" autocomplete="off" placeholder="sk-..." />
+                </label>
+                <button type="button" data-action="toggle-key" data-key-input="keyZhipu">显示</button>
+              </div>
+              <div class="masked-preview">
+                <strong>后台密钥状态</strong>
+                <p id="keyStatus">尚未保存 API Keys</p>
+              </div>
+            </section>
+
+            <section class="settings-section" data-settings-section="llmapi">
+              <div class="combined-api-head">
+                <h3>大语言模型 LLM API Keys</h3>
+                <p>AI 对话工作台只读取这里保存的 Key。选择 OpenAI、Gemini、Claude、DeepSeek、Qwen 等模型时，会自动使用对应平台的 API Key 联网回复。</p>
+              </div>
+              <div class="api-directory">
+                <div id="llmApiDirectory" class="api-provider-list"></div>
+              </div>
+            </section>
+
+            <section class="settings-section" data-settings-section="imageapi">
+              <div class="settings-grid">
+                <label>
+                  <span>图片 API 服务商</span>
+                  <select id="imageProviderSetting"></select>
+                </label>
+                <label>
+                  <span>图片生成模型</span>
+                  <select id="imageModelSetting"></select>
+                </label>
+                <label>
+                  <span>图片尺寸预设</span>
+                  <select id="imageSizeSetting">
+                    <option>1024x1024</option>
+                    <option>1024x1536</option>
+                    <option>1536x1024</option>
+                    <option>1920x1080</option>
+                    <option>1080x1920</option>
+                    <option>1200x628</option>
+                    <option>1080x1080</option>
+                    <option>2480x3508</option>
+                    <option>auto</option>
+                    <option>custom</option>
+                  </select>
+                </label>
+                <label>
+                  <span>图片质量</span>
+                  <select id="imageQualitySetting">
+                    <option>auto</option>
+                    <option>low</option>
+                    <option>medium</option>
+                    <option>high</option>
+                  </select>
+                </label>
+              </div>
+              <div id="customSizePanel" class="custom-size-panel">
+                <label>
+                  <span>宽度</span>
+                  <input id="customWidthSetting" type="number" min="1" value="1024" />
+                </label>
+                <label>
+                  <span>高度</span>
+                  <input id="customHeightSetting" type="number" min="1" value="1024" />
+                </label>
+                <label>
+                  <span>单位</span>
+                  <select id="customUnitSetting">
+                    <option value="px">px 像素</option>
+                    <option value="cm">cm 厘米</option>
+                    <option value="mm">mm 毫米</option>
+                    <option value="in">in 英寸</option>
+                    <option value="pt">pt 点</option>
+                    <option value="pc">pc 派卡</option>
+                    <option value="dp">dp 设备独立像素</option>
+                    <option value="rem">rem 根字号</option>
+                    <option value="em">em 字号</option>
+                    <option value="vw">vw 视窗宽度</option>
+                    <option value="vh">vh 视窗高度</option>
+                  </select>
+                </label>
+                <label>
+                  <span>DPI / PPI</span>
+                  <input id="customDpiSetting" type="number" min="1" value="300" />
+                </label>
+                <label>
+                  <span>根字号 / 基准</span>
+                  <input id="customBaseSetting" type="number" min="1" value="16" />
+                </label>
+                <div class="size-preview">
+                  <strong id="customPixelPreview">1024 × 1024 px</strong>
+                  <span>会发送给 API 的实际像素尺寸</span>
+                </div>
+              </div>
+              <div class="masked-preview">
+                <strong>联网调用方式</strong>
+                <p>AI 生图会请求本地后端 <code>/api/generate-image</code>，再由后端带 API Key 调用对应服务商。</p>
+              </div>
+              <div class="api-directory">
+                <div class="field-head">
+                  <h3>市面生图 API 模型</h3>
+                  <button type="button" data-action="save-api-directory">保存全部 Key</button>
+                </div>
+                <div id="imageApiDirectory" class="api-provider-list"></div>
+              </div>
+            </section>
+
+            <section class="settings-section" data-settings-section="videoapi">
+              <div class="settings-grid">
+                <label>
+                  <span>影片 API 服务商</span>
+                  <select id="videoProviderSetting"></select>
+                </label>
+                <label>
+                  <span>影片生成模型</span>
+                  <select id="videoModelSetting"></select>
+                </label>
+                <label>
+                  <span>影片 API Key</span>
+                  <input id="videoProviderKeySetting" type="password" autocomplete="off" placeholder="选择服务商后填写对应 Key" />
+                </label>
+                <label>
+                  <span>影片 Endpoint</span>
+                  <input id="videoEndpointSetting" type="url" placeholder="服务商生成任务 API 地址" />
+                </label>
+                <label>
+                  <span>BytePlus Endpoint</span>
+                  <input id="byteplusEndpointSetting" type="url" placeholder="https://ark.cn-beijing.volces.com/api/v3/contents/generations/tasks" />
+                </label>
+                <label>
+                  <span>BytePlus Workspace ID</span>
+                  <input id="byteplusWorkspaceSetting" type="text" placeholder="可选，旧 VideoPilot 需要时填写" />
+                </label>
+                <label>
+                  <span>Webhook 回调地址</span>
+                  <input id="webhookSetting" type="url" placeholder="https://example.com/render-callback" />
+                </label>
+              </div>
+              <div class="settings-actions inline-settings-actions">
+                <button type="button" class="ghost-btn" data-action="save-video-api-key">保存当前影片 API Key</button>
+                <button type="button" class="ghost-btn danger-lite-btn" data-action="delete-video-api-key">删除当前影片 API Key</button>
+                <button type="button" class="ghost-btn" data-action="test-video-api">测试影片 API</button>
+              </div>
+              <div class="masked-preview">
+                <strong>已覆盖的影片 API</strong>
+                <p id="videoApiStatus">Runway、Kling、Luma、Pika、OpenAI Sora、MiniMax / Hailuo、PixVerse、Vidu、Haiper、LTX Studio、Replicate、fal.ai、BytePlus Seedance。</p>
+              </div>
+              <div class="api-directory">
+                <div class="field-head">
+                  <h3>市面影片 API 模型</h3>
+                  <button type="button" data-action="save-api-directory">保存全部 Key</button>
+                </div>
+                <div id="videoApiDirectory" class="api-provider-list"></div>
+              </div>
+            </section>
+
+            <section class="settings-section" data-settings-section="localvideo">
+              <div class="settings-grid">
+                <label>
+                  <span>本地影片模型</span>
+                  <select id="localVideoModelSetting"></select>
+                </label>
+                <label>
+                  <span>本地服务地址</span>
+                  <input id="localVideoEndpointSetting" type="url" placeholder="http://127.0.0.1:8188/prompt" />
+                </label>
+                <label>
+                  <span>模型目录</span>
+                  <input id="localVideoDirectorySetting" type="text" placeholder="/Users/user/Documents/wan2.2" />
+                </label>
+                <label>
+                  <span>模型文件路径</span>
+                  <input id="localVideoPathSetting" type="text" placeholder="/Users/user/Downloads/model.safetensors" />
+                </label>
+                <label>
+                  <span>文字生成工作流</span>
+                  <input id="localTextWorkflowSetting" type="text" placeholder="/Users/user/Documents/wan2.2/text_to_video_wan22_5B.json" />
+                </label>
+                <label>
+                  <span>图片生成影片工作流</span>
+                  <input id="localImageWorkflowSetting" type="text" placeholder="/Users/user/Documents/wan2.2/image_to_video_wan22_5B.json" />
+                </label>
+                <label>
+                  <span>本地服务 Token</span>
+                  <input id="localVideoTokenSetting" type="password" autocomplete="off" placeholder="可选，本地服务需要时填写" />
+                </label>
+                <label>
+                  <span>提交方式</span>
+                  <select id="localVideoMethodSetting">
+                    <option>POST JSON</option>
+                    <option>ComfyUI Prompt</option>
+                    <option>Custom Webhook</option>
+                  </select>
+                </label>
+              </div>
+              <div class="settings-actions inline-settings-actions">
+                <button type="button" class="ghost-btn" data-action="test-local-video">测试本地影片服务</button>
+              </div>
+              <div class="masked-preview">
+                <strong>本地模型说明</strong>
+                <p>选择本地模型生成影片时，网页会请求本地后端 <code>/api/generate-local-video</code>，再由后端把提示词、模型、时长、尺寸等参数转发到你的本机推理服务。</p>
+              </div>
+            </section>
+
+            <section class="settings-section" data-settings-section="security">
+              <div class="masked-preview">
+                <strong>当前账户</strong>
+                <p id="securityAccountEmail">未登录</p>
+              </div>
+              <div class="settings-grid">
+                <label>
+                  <span>当前密码</span>
+                  <input id="currentPasswordInput" type="password" autocomplete="current-password" placeholder="输入当前密码" />
+                </label>
+                <label>
+                  <span>新密码</span>
+                  <input id="newPasswordInput" type="password" autocomplete="new-password" placeholder="至少 6 位" />
+                </label>
+                <label>
+                  <span>确认新密码</span>
+                  <input id="confirmPasswordInput" type="password" autocomplete="new-password" placeholder="再次输入新密码" />
+                </label>
+              </div>
+              <div class="settings-actions inline-settings-actions account-actions">
+                <button type="button" class="ghost-btn" data-action="change-password">修改密码</button>
+              </div>
+              <div class="danger-zone">
+                <div>
+                  <strong>删除账户</strong>
+                  <p>删除后会从本机移除这个账户和登录状态。输入 DELETE 后才能执行。</p>
+                </div>
+                <label>
+                  <span>确认文字</span>
+                  <input id="deleteConfirmInput" type="text" placeholder="DELETE" />
+                </label>
+                <button type="button" class="danger-btn" data-action="delete-account">删除账户</button>
+              </div>
+            </section>
+
+            <div class="settings-actions">
+              <button type="button" class="ghost-btn" data-action="copy-config">复制配置摘要</button>
+              <button type="button" class="ghost-btn" data-action="clear-keys">清空 Keys</button>
+              <button type="submit" class="solid-btn">保存设置</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <div id="adminLoginModal" class="modal-backdrop" hidden>
+      <section class="auth-modal admin-login-modal" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+        <button class="close-btn" data-action="close-admin-login" aria-label="关闭">×</button>
+        <p class="eyebrow">Admin Only</p>
+        <h2 id="adminLoginTitle">Admin 后台登录</h2>
+        <p id="adminLoginHint">只有 admin 可以查看和管理 API Keys。第一次登录会创建本机 Admin 密码。</p>
+        <label>
+          <span>Admin 密码</span>
+          <input id="adminPasswordInput" type="password" autocomplete="current-password" placeholder="至少 8 位" />
+        </label>
+        <button type="button" class="primary-btn auth-submit" data-action="admin-login">进入后台</button>
+      </section>
+    </div>
+
+    <div id="assetsModal" class="modal-backdrop" hidden>
+      <section class="assets-modal" role="dialog" aria-modal="true" aria-labelledby="assetsTitle">
+        <button class="close-btn" data-action="close-assets" aria-label="关闭">×</button>
+        <div class="settings-head">
+          <div>
+            <p class="eyebrow">Assets</p>
+            <h2 id="assetsTitle">生成素材库</h2>
+            <p>这里显示以往生成过的图片和影片。</p>
+          </div>
+        </div>
+        <div class="asset-tabs">
+          <button class="active" data-asset-filter="image">图片</button>
+          <button data-asset-filter="video">影片</button>
+        </div>
+        <div id="assetsGrid" class="assets-grid"></div>
+      </section>
+    </div>
+
+    <div id="uploadPreviewModal" class="modal-backdrop upload-preview-backdrop" hidden>
+      <section class="upload-preview-modal" role="dialog" aria-modal="true" aria-labelledby="uploadPreviewTitle">
+        <button class="close-btn" data-action="close-upload-preview" aria-label="关闭">×</button>
+        <div class="settings-head">
+          <div>
+            <p class="eyebrow">Uploaded Asset</p>
+            <h2 id="uploadPreviewTitle">素材预览</h2>
+            <p id="uploadPreviewMeta">确认上传的素材是否正确。</p>
+          </div>
+        </div>
+        <div id="uploadPreviewBody" class="upload-preview-body"></div>
+      </section>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
